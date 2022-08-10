@@ -1,0 +1,119 @@
+.content {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    margin: 35px;
+}
+
+
+.info {
+    font-style: italic;
+    font-size: .9em;
+}
+
+.article::after {
+    content: '';
+    position: relative;
+    width: 100%;
+    border-bottom: 2px solid rgb(237 237 237);
+    display: block;
+}
+
+.thumbnail {
+    width: auto;
+    height: 15rem;
+    box-shadow: 0 0 10px 1px grey;
+    border-radius: 5px;
+    background-size: cover;
+}
+
+.editStatus {
+    font-size: .8em;
+}
+
+.score {
+    color: green;
+    border-radius: 50%;
+    padding: 5px;
+    background-color: #d7d1d1;
+    min-width: 50px;
+    min-height: 50px;
+    display: inline-block;
+    font-size: 1.5em;
+    text-align: center;
+    line-height: 1.5;
+}
+
+
+.card {
+    padding: 4px;
+    border-bottom: 3px solid gray;
+    text-transform: uppercase;
+    font-size: .8em;
+    font-weight: bold;
+    letter-spacing: .6px;
+}
+
+.nolink {
+    font-size: .7em;
+}
+
+.addForm div {
+    padding: 30px 10px;
+}
+
+.addForm span {
+
+    float: left;
+}
+
+.addForm input {
+    float: right;
+    width: 200px;
+    padding: 5px 10px;
+}
+
+.addForm {
+    min-width: 350px;
+    color: blue;
+}
+
+
+@media (min-width: 768px) {
+
+    .article::after {
+        padding: 0 0 50px 0;
+    }
+
+
+    .textContainer {
+        width: 60%;
+    }
+
+    .content {
+        align-items: center;
+    }
+
+    .thumbnail {
+        height: 29rem;
+        width: 60%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .content {
+        flex-direction: row;
+        align-items: start;
+    }
+
+    .textContainer {
+        margin-left: 40px;
+    }
+}
+
+
+@media (prefers-color-scheme: dark) {
+    .score {
+        background-color: white;
+    }
+}
