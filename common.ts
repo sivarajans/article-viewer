@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import gConfig from './apollo.config';
-import { articleType } from "./pages/types/article.type";
+import articleType from "./pages/types/article.type";
 
 export const getIntersectInstance = (callback: any) => {
     return new IntersectionObserver(entries => {
@@ -28,8 +28,8 @@ export const getLocalArticles = () => {
 
 export const saveArticle = (title: string, desc: string, url: string, image: any, callback: any) => {
     image.arrayBuffer().then((data: any) => {
-      
-    
+
+
         let localArticles = getLocalArticles();
 
         let article: articleType = {
@@ -47,7 +47,7 @@ export const saveArticle = (title: string, desc: string, url: string, image: any
         }
         localArticles.push(article);
         window.localStorage['articles'] = JSON.stringify(localArticles);
-        
+
         callback(article);
     })
 
