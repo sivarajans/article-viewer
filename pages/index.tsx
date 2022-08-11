@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import Articles from './articles'
+import Articles from '../partial/_articles'
 
 
 const Home: NextPage = () => {
