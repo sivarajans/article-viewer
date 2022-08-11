@@ -2,9 +2,9 @@ import { MutableRefObject, useCallback, useEffect, useMemo, useRef, useState } f
 import { client, getIntersectInstance, getLocalArticles } from '../common';
 import styles from '../styles/Article.module.css';
 import AddArticle from './addArticle';
-import { GET_ARTICLES } from './api/graphQueries';
+import { GET_ARTICLES } from '../api/graphQueries';
 import SingleArticle from './article';
-import articleType from './types/article.type';
+import articleType from '../types/article.type';
 
 export default function Articles() {
     const oberver: MutableRefObject<any> = useRef();

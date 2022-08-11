@@ -1,4 +1,4 @@
-import articleType from './types/article.type';
+import articleType from '../types/article.type';
 import useThumbnail from './useThumbnail';
 import styles from '../styles/Article.module.css';
 import { useEffect, useMemo, useState } from 'react';
