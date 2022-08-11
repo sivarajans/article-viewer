@@ -1,6 +1,6 @@
 import { ApolloClient, InMemoryCache } from "@apollo/client";
 import gConfig from './apollo.config';
-import articleType from "./pages/types/article.type";
+import articleType from "./types/article.type";
 
 export const getIntersectInstance = (callback: any) => {
     return new IntersectionObserver(entries => {
