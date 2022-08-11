@@ -1,4 +1,4 @@
-export type articleType = {
+type articleType = {
     id: string,
     author: string,
     createdAt: Date,

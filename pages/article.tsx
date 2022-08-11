@@ -1,5 +1,5 @@
-import { articleType } from './types/article.type';
-import { useThumbnail } from './useThumbnail';
+import articleType from './types/article.type';
+import useThumbnail from './useThumbnail';
 import styles from '../styles/Article.module.css';
 import { useEffect, useMemo, useState } from 'react';
 
@@ -8,7 +8,7 @@ export default function SingleArticle({ article }: any) {
     const nail = useThumbnail(article.nail, article.url, article.isThumbnailTried);
 
     useMemo(() => {
-        setArticle((prev: articleType) => ({ ...prev, nail : nail, isThumbnailTried: true }));
+        setArticle((prev: articleType) => ({ ...prev, nail: nail, isThumbnailTried: true }));
     }, [article])
 
     return (<div className={styles.content}>
