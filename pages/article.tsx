@@ -3,7 +3,7 @@ import { useThumbnail } from './useThumbnail';
 import styles from '../styles/Article.module.css';
 import { useEffect, useMemo, useState } from 'react';
 
-export function SingleArticle({ article }: any) {
+export default function SingleArticle({ article }: any) {
     const [_article, setArticle] = useState(article);
     const nail = useThumbnail(article.nail, article.url, article.isThumbnailTried);
 

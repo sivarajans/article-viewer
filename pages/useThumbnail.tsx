@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect, useMemo, useRef } from 'react';
 
-export function useThumbnail(nail: string, url: string, isAlreadyTaken: boolean) {
+export default function useThumbnail(nail: string, url: string, isAlreadyTaken: boolean) {
     const [thumbnail, setThumbnail] = useState('');
     const isNailParsed = useRef(false);
 

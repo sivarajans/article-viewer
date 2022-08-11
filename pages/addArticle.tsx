@@ -3,7 +3,7 @@ import Modal from 'react-modal';
 import { saveArticle } from '../common';
 import styles from '../styles/Article.module.css'
 
-export function AddArticle({ emitRefresh }: any) {
+export default function AddArticle({ emitRefresh }: any) {
     const [title, setTitle] = useState('');
     const [url, setUrl] = useState('');
     const [desc, setDesc] = useState('');

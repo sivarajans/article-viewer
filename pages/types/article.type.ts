@@ -11,3 +11,4 @@ export type articleType = {
     nail: string,
     isThumbnailTried: boolean
 }
+export default articleType;
