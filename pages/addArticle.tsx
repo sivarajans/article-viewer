@@ -74,15 +74,15 @@ export function AddArticle({ emitRefresh }: any) {
                 <form className={styles.addForm}>
                     <div>
                         <span>Title</span>
-                        <input type='text' onInput={el => setTitle(el.target.value)}></input>
+                        <input type='text' onInput={el => setTitle((el.target as HTMLInputElement).value)}></input>
                     </div>
                     <div>
                         <span>URL</span>
-                        <input type='text' onInput={el => setUrl(el.target.value)}></input>
+                        <input type='text' onInput={el => setUrl((el.target as HTMLInputElement).value)}></input>
                     </div>
                     <div>
                         <span>Description</span>
-                        <input type='text' onInput={el => setDesc(el.target.value)}></input>
+                        <input type='text' onInput={el => setDesc((el.target as HTMLInputElement).value)}></input>
                     </div>
                     <div>
                         <span>Image</span>

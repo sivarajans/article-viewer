@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { useState, useEffect, useMemo } from 'react';
 
-export function useThumbnail(url: string) {
+export function useThumbnail(nail: string, url: string, isAlreadyTaken: boolean) {
     const [thumbnail, setThumbnail] = useState('');
 
     useEffect(() => {
-        if (url == undefined || url == '') {
-            return;
+        if (url == undefined || url == '' || nail != undefined || isAlreadyTaken) {
+            setThumbnail(nail);
         }
         else {
             axios.get(url).then(respnose => {
@@ -23,7 +23,7 @@ export function useThumbnail(url: string) {
                 console.warn('unable to find any image', e);
             });
         }
-    }, [])
+    }, [url])
 
 
     function searchImage(html: string, hint: [query: string, attr: string][]): string | undefined {
@@ -32,8 +32,8 @@ export function useThumbnail(url: string) {
         for (let [tag, attr] of hint) {
             var metas = doc.getElementsByTagName(tag);
             if (metas != undefined)
-                for (let meta of metas) {
-                    let cont = meta[attr];
+                for (let i = 0; i < metas.length; i++) {
+                    let cont = metas[i].getAttribute(attr);
                     if (cont != undefined) {
                         let match = cont.match(/^http[s].+\.(jpg|jpeg|png|gif|apng|avif|svg|webp)$/gi);
                         if (match) {

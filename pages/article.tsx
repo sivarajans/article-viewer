@@ -1,18 +1,18 @@
 import { articleType } from './types/article.type';
 import { useThumbnail } from './useThumbnail';
 import styles from '../styles/Article.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 export function SingleArticle({ article }: any) {
     const [_article, setArticle] = useState(article);
-    const nail = useThumbnail(article.isThumbnailTried ? undefined : article.url);
+    const nail = useThumbnail(article.nail, article.url, article.isThumbnailTried);
 
-    useEffect(() => {
-        setArticle((prev: articleType) => ({ ...prev, nail: nail, isThumbnailTried: true }));
-    }, [nail])
+    useMemo(() => {
+        setArticle((prev: articleType) => ({ ...prev, nail : nail, isThumbnailTried: true }));
+    }, [article])
 
     return (<div className={styles.content}>
-        <div className={styles.thumbnail} style={{ backgroundImage: `url('${nail}')` }}>
+        <div className={styles.thumbnail} style={{ backgroundImage: `url(${nail})` }}>
         </div>
         <div className={styles.textContainer}>
             <h1 className={styles.title}>

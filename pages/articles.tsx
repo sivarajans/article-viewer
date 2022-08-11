@@ -7,51 +7,56 @@ import { SingleArticle } from './article';
 import { articleType } from './types/article.type';
 
 export default function Articles() {
-    const [currentPage, setCurrentPage] = useState(0);
-    const [canYeildMore, setCanYeildMore] = useState(true);
-    const [articles, setArticles] = useState([] as articleType[]);
     const oberver: MutableRefObject<any> = useRef();
-    
-    let isLoading = true;
-    let error: any;
-    let isAdded = false;
 
+    const [currentPage, setCurrentPage] = useState(0);
+    const [articles, setArticles] = useState([] as articleType[]);
+    const [error, setError] = useState('');
+    const [isLoading, setIsLoading] = useState(true);
+
+    const canYeildMore = useRef(true);
+    const isLocalArticleAdded = useRef(false);
+
+    // local articles fetch
     useEffect(() => {
-        if (!isAdded) {
+        if (!isLocalArticleAdded.current) {
+            isLocalArticleAdded.current = true;
             let localArticles = getLocalArticles();
-            isAdded = true;
             setArticles(prev => ([...localArticles, ...prev]))
         }
-    }, [])
+    }, [isLocalArticleAdded])
 
-    // Memorizing to avoid any change to page should not call articles again.
+
+    // remote articles fetch
     useMemo(() => {
-        if (currentPage != null && canYeildMore) {
+        if (currentPage != null && canYeildMore.current) {
             client.query({ query: GET_ARTICLES, variables: { page: currentPage } }).then(result => {
-                isLoading = false;
+                setIsLoading(false);
                 if (result?.data?.retrievePageArticles?.length > 0) {
                     let nextPage = result?.data?.retrievePageArticles;
                     setArticles(art => ([...art, ...nextPage]))
                 } else {
-                    setCanYeildMore(false)
+                    canYeildMore.current = false;
                 }
-            }, e => error = e)
+            }, e => setError(e))
         }
     }, [currentPage])
 
 
+    // last article connet to invoke next page data
     const lastArticleWatchReference = useCallback((node: any) => {
         if (isLoading) return;
         focusConnect(node);
 
-    }, [currentPage])
+    }, [articles])
 
 
+    // connect focus with last element
     function focusConnect(node: any) {
         if (oberver && oberver.current) oberver.current.disconnect();
         oberver.current = getIntersectInstance(() => {
             oberver.current.disconnect();
-            if (canYeildMore) {
+            if (canYeildMore.current) {
                 setCurrentPage(page => page + 1);
             }
         });
@@ -59,6 +64,7 @@ export default function Articles() {
         if (node) oberver.current.observe(node);
     }
 
+    // callback for child component to invoke last locally added article
     function refreshFromLocalStorage(article: any) {
         setArticles(prev => ([article, ...prev]))
     }
