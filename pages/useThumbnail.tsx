@@ -1,27 +1,29 @@
 import axios from 'axios';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 
 export function useThumbnail(nail: string, url: string, isAlreadyTaken: boolean) {
     const [thumbnail, setThumbnail] = useState('');
+    const isNailParsed = useRef(false);
 
     useEffect(() => {
         if (url == undefined || url == '' || nail != undefined || isAlreadyTaken) {
             setThumbnail(nail);
         }
         else {
-            axios.get(url).then(respnose => {
-                let html = respnose.data;
-                if (html) {
-
-                    let img = searchImage(html, [['meta', 'content'], ['img', 'src'], ['img', 'srcset']]);
-
-                    setThumbnail(img ?? '');
-                }
-            }).catch(e => {
-                // ignoring error
-                // unable to fetch image from meta
-                console.warn('unable to find any image', e);
-            });
+            if (!isNailParsed.current) {
+                isNailParsed.current = true;
+                axios.get(url).then(respnose => {
+                    let html = respnose.data;
+                    if (html) {
+                        let img = searchImage(html, [['meta', 'content'], ['img', 'src'], ['img', 'srcset']]);
+                        setThumbnail(img ?? '');
+                    }
+                }).catch(e => {
+                    // ignoring error
+                    // unable to get image url
+                    console.warn('unable to find any image', e);
+                });
+            }
         }
     }, [url])
 
@@ -39,7 +41,6 @@ export function useThumbnail(nail: string, url: string, isAlreadyTaken: boolean)
                         if (match) {
                             return match[0];
                         }
-
                     }
                 }
         }

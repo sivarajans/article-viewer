@@ -67,10 +67,19 @@
     float: left;
 }
 
-.addForm input {
+.addForm input,
+.addForm textarea {
     float: right;
     width: 200px;
     padding: 5px 10px;
+}
+
+.addForm textarea {
+    max-width: 200px;
+    min-width: 200px;
+    max-height: 75px;
+    min-height: 75px;
+    clear: both;
 }
 
 .addForm {
@@ -78,6 +87,9 @@
     color: blue;
 }
 
+.addForm button {
+    clear: both;
+}
 
 @media (min-width: 768px) {
 

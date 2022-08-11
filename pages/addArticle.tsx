@@ -3,39 +3,20 @@ import Modal from 'react-modal';
 import { saveArticle } from '../common';
 import styles from '../styles/Article.module.css'
 
-const customStyles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-    },
-};
-
-
 export function AddArticle({ emitRefresh }: any) {
     const [title, setTitle] = useState('');
     const [url, setUrl] = useState('');
     const [desc, setDesc] = useState('');
     const [file, setFile] = useState(undefined);
-
     const [isError, setError] = useState(false);
-
     const [modalIsOpen, setIsOpen] = useState(false);
 
     function openModal() {
         setIsOpen(true);
     }
-
-    function afterOpenModal() {
-    }
-
     function closeModal() {
         setIsOpen(false);
     }
-
     function submit(e: any) {
         e.preventDefault();
 
@@ -45,7 +26,6 @@ export function AddArticle({ emitRefresh }: any) {
         else {
             setError(true)
         }
-
     }
 
     function callback(lastAdded: any) {
@@ -64,9 +44,9 @@ export function AddArticle({ emitRefresh }: any) {
             <button className='themeButton addArticle' onClick={openModal}>Add Article</button>
             <Modal
                 isOpen={modalIsOpen}
-                onAfterOpen={afterOpenModal}
                 onRequestClose={closeModal}
-                style={customStyles}
+                ariaHideApp={false}
+                style={{ content: { top: '50%', left: '50%', right: 'auto', bottom: 'auto', marginRight: '-50%', transform: 'translate(-50%, -50%)', } }}
                 contentLabel="Add Modal"
             >
                 <button onClick={closeModal}>X</button>
@@ -82,7 +62,7 @@ export function AddArticle({ emitRefresh }: any) {
                     </div>
                     <div>
                         <span>Description</span>
-                        <input type='text' onInput={el => setDesc((el.target as HTMLInputElement).value)}></input>
+                        <textarea onInput={el => setDesc((el.target as HTMLInputElement).value)}></textarea>
                     </div>
                     <div>
                         <span>Image</span>
@@ -92,6 +72,6 @@ export function AddArticle({ emitRefresh }: any) {
                     <button onClick={e => submit(e)}>Submit</button>
                 </form>
             </Modal>
-        </div>
+        </div >
     );
 }

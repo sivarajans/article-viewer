@@ -9,6 +9,7 @@ import Articles from './articles'
 const Home: NextPage = () => {
 
   function changeTheme() {
+    // Just simple theme is given, but in real world it is different css files
     if (document.body.classList.value.indexOf("dark") >= 0) {
       document.body.classList.remove("dark")
       document.body.classList.add("white")
